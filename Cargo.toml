@@ -1,0 +1,11 @@
+[package]
+name = "arbor-rs"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+macroquad = "0.4.4"
+glam="0.24.1"
+rapier2d="0.17.2"

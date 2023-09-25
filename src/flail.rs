@@ -1,34 +1,30 @@
 use rapier2d::prelude::{RigidBodyPosition, RigidBodyBuilder, ColliderBuilder, Collider, Ball, ColliderSet, vector, point, RigidBodySet, RigidBody, RigidBodyHandle, PrismaticJointBuilder, MultibodyJoint, RopeJoint, RevoluteJointBuilder, RopeJointBuilder};
-use nalgebra::{Point2};
+//use nalgebra::{Vector2};
+use glam::Vec2;
 
 
 
-pub struct Flail<'a> {
-    position : Point2<f32>,
-    player_position: &'a Point2<f32>,
-    handle : RigidBodyHandle,
-    joint : RopeJoint,
+pub struct Flail {
+    pub position : Vec2,
+    length : f32,
+    //body_handle : RigidBodyHandle,
 }
 
-impl Flail <'_> {
-    pub fn new<'a>(player_position : &'a Point2<f32>, handle : RigidBodyHandle) -> Flail <'a>{
-        let position = *player_position;
-        let rigid_body = RigidBodyBuilder::fixed().translation(vector![0.0, 0.0]).build();
-        let collider = ColliderBuilder::ball(1.0).build();
-        let joint = RopeJointBuilder::new().local_anchor1(point![0.0, 0.0]).limits([0.0,1.0]).build();
-
+impl Flail {
+    pub fn new(position: Vec2) -> Flail {
+        //let position = *player_position;
         Flail {
             position,
-            player_position,
-            joint,
-            handle,
+            length : 5.0,
         }
-
     }
 
-
-    pub fn update_position(&mut self, time_delta : f32) {
-
-
+    pub fn update_position(&mut self, player_position : Vec2, time_delta : f64) {
+        //let body = RigidBodySet::get_mut(RigidBodyHandle).unwrap();
+        let direction : Vec2 = Vec2::normalize_or_zero(self.position - player_position);
+        let distance = Vec2::distance(self.position, player_position);
+        let force : f32 = (distance-self.length)*(distance-self.length);
+        let time_delta = time_delta as f32*1.0;
+        self.position = self.position + direction*force*time_delta;
     }
 }

@@ -7,5 +7,7 @@ edition = "2021"
 
 [dependencies]
 macroquad = "0.4.4"
-glam="0.24.1"
-rapier2d="0.17.2"
+rapier2d ="0.17.2"
+nalgebra ="0.32.3"
+glam ="0.24.1"
+wasm-timer="0.2.5"

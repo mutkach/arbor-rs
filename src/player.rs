@@ -1,27 +1,21 @@
-use std::ops::AddAssign;
-
-//use rapier2d::prelude::{vector, RigidBodySet, RigidBody, Ball, ColliderSet, QueryPipeline, QueryFilter, RigidBodyBuilder};
-//use rapier2d::control::KinematicCharacterController;
-//use nalgebra::Vec2;
-use glam::Vec2;
+use rapier2d::prelude::{vector, RigidBodySet, RigidBody, Ball, ColliderSet, QueryPipeline, QueryFilter, RigidBodyBuilder};
+use rapier2d::control::KinematicCharacterController;
+use rapier2d::math::{Real, Vector};
 
 pub struct Player {
-    pub position : Vec2,
+    pub position : Vector<Real>,
 }
 
 impl Player {
-    pub fn new(position : Vec2) -> Player {
+    pub fn new(position : Vector<Real>) -> Player {
         Player {
             position,
-
         }
     }
 
-    pub fn move_player(&mut self, desired_movement : Vec2, time_delta : f64) {
-        let direction : Vec2 = Vec2::normalize_or_zero(desired_movement);
+    pub fn move_player(&mut self, desired_movement : Vector<Real>, time_delta : f64) {
+        let direction : Vector<Real> = desired_movement;
         let time_delta = time_delta as f32;
-        self.position = self.position + direction*time_delta*10.0;
+        self.position = self.position + direction*time_delta*50.0;
     }
-    //pub fn update_position(&mut self,  {
-    //}
 }
